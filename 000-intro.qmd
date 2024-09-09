@@ -6,7 +6,7 @@ institute: "Western University"
 date: today
 date-format: long
 format:
-  revealjs: 
+  revealjs:
     slide-number: true
     # chalkboard: 
     #   buttons: false
@@ -21,29 +21,29 @@ format:
 ---
 ## What is Econometrics?
 
-- Theoretical economic models explain the qualitative relationship between different economic variables
+- **Theoretical economic models** explain the qualitative relationship between different economic variables
 
-- e.g., Consumption is expected to increase as disposable income and wealth increase (positive relationship)
+    - e.g., Consumption is expected to increase as disposable income and wealth increase (positive relationship)
 
-- However, few models indicate the magnitude of the relationship
+- However, few models indicate the **magnitude** of the relationship
 
-- Yet this is what matters most to policymakers. 
+    - Yet this is what matters most to policymakers. 
 
-- Central bankers need to know how much a 1 percentage increase in the interest rates will have on inflation and the growth rate of the economy
+    - Central bankers need to know how much a 1 percentage increase in the interest rates will have on inflation and the growth rate of the economy
 
 ## What is Econometrics?
 
 > Econometrics uses economic theory, mathematics, and statistical inference to quantify economic phenomena
 
-- The objective of econometrics is to convert qualitative statements into quantitative statements
+- The **objective** of econometrics is to convert *qualitative* statements into *quantitative* statements
 
-- “the relationship between two or more variables is positive” vs. “consumption expenditure increases by 95 cents for every one dollar increase in disposable income”
+- *the relationship between two or more variables is positive* vs. *consumption expenditure increases by 95 cents for every one dollar increase in disposable income*
 
 [Source](https://www.imf.org/external/pubs/ft/fandd/2011/12/basics.htm){.footer}
 
 ## The Challenge
 
-- The gold standard for drawing inferences about the effect of a policy is a randomized controlled experiment
+- The gold standard for drawing inferences about the effect of a policy is a **randomized controlled experiment**
 
 - However, in many cases, experiments remain difficult or impossible to implement
     - for financial, political, or ethical reasons, or because the population of interest is too small.
@@ -58,38 +58,73 @@ format:
 
 ## The Challenge
 
-- A large share of the empirical work in economics about policy questions relies on observational data 
-    — data where policies were determined in a way other than through random assignment. 
+- A large share of the empirical work in economics about policy questions relies on **observational data**
 
-- Drawing inferences about the causal effect of a policy from observational data is challenging.
+    — data where policies were determined in a way other than through random assignment
+
+- Drawing inferences about the causal effect of a policy from observational data is **challenging**
 
 ## Minimum Wage Example
 
-> To understand the challenges, consider the example of the minimum wage. A **naive** analysis of the observational data might compare the **average employment** level of states with a *high minimum wage* to that of states with a *low minimum wage*. This difference is surely not a credible estimate of the **causal effect** of a higher minimum wage, defined as the change in employment that would occur if the low-wage states raised their minimum wage. For example, it might be the case that states with higher costs of living, as well as more price-insensitive consumers, choose higher levels of the minimum wage compared to states with lower costs of living and more price-sensitive consumers.
+> To understand the challenges, consider the example of the minimum wage. A **naive** analysis of the observational data might compare the **average employment** level of states with a *high minimum wage* to that of states with a *low minimum wage*. This difference is surely *not a credible* estimate of the **causal effect** of a higher minimum wage, defined as the *change in employment that would occur if the low-wage states raised their minimum wage*. For example, it might be the case that states with higher costs of living, as well as more price-insensitive consumers, choose higher levels of the minimum wage compared to states with lower costs of living and more price-sensitive consumers.
 
-## Econometrics
+## Confounders
 
-- These factors, which may be unobserved, are said to be “confounders,” meaning that they induce correlation between minimum wage policies and employment that is not indicative of what would happen if the minimum wage policy changed
+- These factors, which may be unobserved, are said to be **confounders**
 
-- In economics, researchers use a wide variety of strategies for attempting to draw **causal inference** from observational data. 
+- Confounders induce correlation between minimum wage policies (explanatory variable) and employment (response variable) that is not indicative of what would happen if the minimum wage policy changed
 
-- These strategies are often referred to as **identification strategies** or empirical strategies (Angrist and Krueger 1999), because they are strategies for identifying the causal effect. 
+## Confounders
+
+::: {#fig-dag fig-width="85%"}
+
+![](figs/earnings_dag-1.png)
+
+Education -> Earnings; Mental Ability -> Education & Earnings
+
+:::
+
+
+## Identification Strategies
+
+- In economics, researchers use a wide variety of *strategies* for attempting to draw **causal inference** from observational data
+
+- These strategies are often referred to as **identification strategies** or empirical strategies, because they are strategies for identifying the causal effect
 
 - We say, somewhat loosely, that a causal effect is identified if it can be learned when the dataset is sufficiently large.
 
 ## Machine Learning and Econometrics
 
-- **Supervised machine learning** focuses primarily on prediction problems
+- **Supervised machine learning** focuses primarily on *prediction* problems
 
-- **Unsupervised machine learning** focuses on methods for finding patterns in data, such as groups of similar items, like clustering images into groups, or putting text documents into groups of similar documents.
+- **Unsupervised machine learning** focuses on methods for *finding patterns* in data, such as groups of similar items, like clustering images into groups, or putting text documents into groups of similar documents.
 
-- This approach is fundamentally different from the goal of **causal inference** in observational studies, 
+## ML vs Econometrics
+
+- ML approach is fundamentally *different* from the goal of **causal inference** in observational studies, 
     - where we observe data on outcomes and a treatment variable, and we wish to draw inferences about potential outcomes
 
-## Differences
-
-- An important difference between many (but not all) econometric approaches and supervised machine learning is that supervised machine learning methods typically rely on data-driven model selection, most commonly through cross-validation,
-
-- as opposed to econometrics, where the model is informed by economic theory
-
 - the main focus of supervised machine learning is on prediction performance without regard to the implications for inference
+
+## ML vs Econometrics
+
+- supervised machine learning methods typically rely on data-driven model selection, most commonly through cross-validation,
+
+- in econometrics, the model is informed by economic theory
+
+
+## ML vs Econometrics
+
+| Discipline | Model Selection | Focus |
+|:-----------|:----------------|:------|
+| Econometrics | Economic Theory | Causal Inference |
+| Supervised ML | Data-driven | Prediction |
+: Econometrics vs. Machine Learning
+
+## Stages of Development
+
+1. By relying on economic theory, formulate a hypothesis to explain the data being examined
+1. Develop an identification strategy to account for confounders
+1. Apply the identification strategy to test the hypothesis using statistical tools
+
+- Focus of this course is to introduce the statitical tools
