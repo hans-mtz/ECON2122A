@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Monty Hall Game and Bayes' Theorem}
+\author{Hans Martinez}
+\date{September 25, 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction to the Monty Hall Problem}
+
+The Monty Hall problem is a famous probability puzzle named after the host of the television game show `Let's Make a Deal'. The game works as follows:
+
+\begin{enumerate}
+    \item There are three doors. Behind one door is a car (the prize), and behind the other two doors are goats.
+    \item The contestant chooses a door, but it remains closed.
+    \item Monty Hall, who knows what's behind each door, opens another door, always revealing a goat.
+    \item Monty then asks the contestant if they want to stick with their original choice or switch to the remaining unopened door.
+    \item The contestant wins whatever is behind their final choice of door.
+\end{enumerate}
+
+The key to this problem lies in understanding how Monty's action of opening a door provides new information, and how we can use Bayes' Theorem to update our prior probabilities based on this new information.
+
+\subsection{New Information and Bayes' Theorem}
+
+When Monty opens a door, he's not doing so randomly. He always opens a door with a goat, and he never opens the door the contestant initially chose. This action provides new information that wasn't available when the contestant made their initial choice.
+
+Bayes' Theorem allows us to update our probabilities based on this new information. It tells us how to calculate the probability of an event A, given that we've observed event B. In the context of the Monty Hall problem:
+
+\begin{itemize}
+    \item Event A could be "the car is behind door 1"
+    \item Event Z (our new information) is "Monty opened door 2, revealing a goat"
+\end{itemize}
+
+We'll use Bayes' Theorem to calculate how the probability of winning changes if the contestant stays with their original choice versus switching to the other unopened door.
+
+\section{Monty Hall Game Analysis}
+
+\subsection{Initial Probability}
+
+At the start of the game, each door is equally likely to hide the car.
+
+\begin{align*}
+    A &= \text{Car is behind door 1} \\
+    B &= \text{Car is behind door 2} \\
+    C &= \text{Car is behind door 3} \\
+    P(A) &= P(B) = P(C) = \frac{1}{3} 
+\end{align*}
+
+Any door is good, so you pick door 1.
+Monty always opens a door revealing a goat. Suppose Monty opens door 2 $\rightarrow$ New information.
+
+Let $Z=\text{Monty opens door 2}$.
+
+You want to know:
+\begin{align*}
+    P(A|Z) &\quad \text{(Staying with your choice Door 1)} \\
+    P(C|Z) &\quad \text{(Switching to the other unopened door, Door 3)}
+\end{align*}
+
+You need $P(Z)$, the probability that Monty opens Door 2.
+
+\subsection{Bayes' Theorem}
+
+Because you took intro to metrics with an awesome prof, you know that
+
+\begin{align*}
+    P(A|Z) &= \frac{P(Z|A)P(A)}{P(Z)} \\
+    P(C|Z) &= \frac{P(Z|C)P(C)}{P(Z)}
+\end{align*}
+
+\subsection{Calculation of P(Z)}
+\begin{align*}
+    P(Z) &= P(Z|A)P(A) + P(Z|B)P(B) + P(Z|C)P(C) \\
+    P(Z|A) &= \frac{1}{2} \quad \text{Probability Monty opens door 2 given prize is behind door 1.} \\
+    &\quad \text{You opened door 1. Suppose you have the car, then} \\
+    &\quad \text{Monty does not care if he opens door 2 or 3.} \\
+    P(Z|B) &= 0 \quad \text{Because Monty opened door 2, we know the prize is not behind door 2} \\
+    &\quad \text{Monty just revealed a goat behind that door!} \\
+    P(Z|C) &= 1 \quad \text{If car is behind door 3 (event C), Monty can only open door 2,} \\
+    &\quad \text{because you have the other goat!} \\
+    P(Z) &= \left(\frac{1}{2}\right)\left(\frac{1}{3}\right) + 0\left(\frac{1}{3}\right) + 1\left(\frac{1}{3}\right) \\
+    &= \frac{1}{6} + \frac{1}{3} = \frac{1}{2}
+\end{align*}
+
+\subsection{Final Probabilities}
+
+With these probabilities at hand you can estimate the conditional probabilities of the car being behind the door you picked (door 1), or the other unopened door (door 2).
+\begin{align*}
+    P(A|Z) &= \frac{\frac{1}{2}\left(\frac{1}{3}\right)}{\frac{1}{2}} = \frac{1}{3} \\
+    P(C|Z) &= \frac{1\left(\frac{1}{3}\right)}{\frac{1}{2}} = \frac{1}{3} \cdot \frac{2}{1} = \frac{2}{3}
+\end{align*}
+
+\section{Conclusion}
+
+After applying Bayes' Theorem to update our probabilities based on the new information provided by Monty's action, we find that:
+
+\begin{itemize}
+    \item If you stay with your original choice (Door 1), your probability of winning the car is $\frac{1}{3}$.
+    \item If you switch to the other unopened door (Door 3), your probability of winning the car is $\frac{2}{3}$.
+\end{itemize}
+
+Therefore, you are twice as likely to win the car if you switch to the other unopened door. This counter-intuitive result demonstrates the power of Bayes' Theorem in updating probabilities based on new information.
+
+\end{document}
