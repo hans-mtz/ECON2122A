@@ -1,0 +1,357 @@
+# Intro to Econometrics with R
+
+## R Basics
+
+### What is R?
+R is a programming language and free software environment for statistical computing and graphics. It's widely used among statisticians and data miners for developing statistical software and data analysis.
+
+```{r}
+# This is an R code cell
+print("Hello, welcome to R!")
+```
+
+### Types of variables
+
+#### Strings
+```{r}
+# String variable
+name <- "John Doe"
+print(name)
+```
+
+#### Integers
+```{r}
+# Integer variable
+age <- 25L  # The 'L' suffix denotes an integer
+print(age)
+```
+
+#### Float (Numeric)
+```{r}
+# Float variable
+height <- 5.9
+print(height)
+```
+
+#### Logic (Boolean)
+```{r}
+# Logical variable
+is_student <- TRUE
+print(is_student)
+```
+
+### Collections of variables
+
+#### Vectors
+```{r}
+# Vector
+numbers <- c(1, 2, 3, 4, 5)
+print(numbers)
+```
+
+#### Lists
+```{r}
+# List
+person <- list(name="John", age=25, height=5.9)
+print(person)
+```
+
+#### Data Frames
+```{r}
+# Data Frame
+df <- data.frame(
+  name = c("John", "Jane", "Mike"),
+  age = c(25, 30, 35),
+  height = c(5.9, 5.6, 6.1)
+)
+print(df)
+```
+
+### Arithmetic functions
+```{r}
+a <- 10
+b <- 5
+
+print(paste("Addition:", a + b))
+print(paste("Subtraction:", a - b))
+print(paste("Multiplication:", a * b))
+print(paste("Division:", a / b))
+print(paste("Exponentiation:", a ^ 2))
+```
+
+### Logical functions
+```{r}
+x <- 10
+y <- 5
+
+print(paste("x > y:", x > y))
+print(paste("x < y:", x < y))
+print(paste("x == y:", x == y))
+print(paste("x != y:", x != y))
+```
+
+### Functions
+```{r}
+# Define a function
+square <- function(x) {
+  return(x^2)
+}
+
+# Use the function
+result <- square(4)
+print(paste("The square of 4 is:", result))
+```
+
+## Data Visualization
+
+### Tables
+```{r}
+# Create a simple table
+table(df$age)
+```
+
+### Cross tables
+```{r}
+# Install and load the required package
+install.packages("gmodels")
+library(gmodels)
+
+# Create a cross table
+CrossTable(df$name, df$age)
+```
+
+### Bar plot
+```{r}
+barplot(table(df$age), main="Age Distribution", xlab="Age", ylab="Frequency")
+```
+
+### Histogram
+```{r}
+hist(df$height, main="Height Distribution", xlab="Height")
+```
+
+### Scatter plot
+```{r}
+plot(df$age, df$height, main="Age vs Height", xlab="Age", ylab="Height")
+```
+
+### Time series plot
+```{r}
+# Create sample time series data
+dates <- seq(as.Date("2023-01-01"), by="month", length.out=12)
+values <- rnorm(12, mean=100, sd=10)
+ts_data <- data.frame(date=dates, value=values)
+
+# Plot time series
+plot(ts_data$date, ts_data$value, type="l", main="Time Series Plot", xlab="Date", ylab="Value")
+```
+
+## Data Summaries
+
+### Mean, Variance, Median
+```{r}
+data <- c(2, 4, 4, 4, 5, 5, 7, 9)
+
+print(paste("Mean:", mean(data)))
+print(paste("Variance:", var(data)))
+print(paste("Median:", median(data)))
+```
+
+### Mode
+```{r}
+# Mode function (R doesn't have a built-in mode function)
+get_mode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+print(paste("Mode:", get_mode(data)))
+```
+
+### Kurtosis
+```{r}
+# Install and load the required package
+install.packages("moments")
+library(moments)
+
+print(paste("Kurtosis:", kurtosis(data)))
+```
+
+### Interquartile range
+```{r}
+print(paste("Interquartile Range:", IQR(data)))
+```
+
+### Box-and-whisker plots
+```{r}
+boxplot(data, main="Box-and-Whisker Plot", ylab="Values")
+```
+
+### Weighted Mean and measures of grouped data
+```{r}
+values <- c(1, 2, 3, 4, 5)
+weights <- c(2, 1, 3, 2, 1)
+
+weighted_mean <- weighted.mean(values, weights)
+print(paste("Weighted Mean:", weighted_mean))
+```
+
+## Probability
+
+### Relative frequency
+```{r}
+outcomes <- c("heads", "tails", "heads", "heads", "tails")
+relative_freq <- table(outcomes) / length(outcomes)
+print(relative_freq)
+```
+
+### Permutation and Combinations
+```{r}
+# Install and load the required package
+install.packages("gtools")
+library(gtools)
+
+# Permutations
+n <- 3
+r <- 2
+perms <- permutations(n, r)
+print("Permutations:")
+print(perms)
+
+# Combinations
+combs <- combinations(n, r)
+print("Combinations:")
+print(combs)
+```
+
+### Conditional Probability
+```{r}
+# Example: P(A|B) = P(A and B) / P(B)
+P_A_and_B <- 0.3
+P_B <- 0.5
+P_A_given_B <- P_A_and_B / P_B
+print(paste("P(A|B) =", P_A_given_B))
+```
+
+### Statistical Independence
+```{r}
+# Two events A and B are independent if P(A and B) = P(A) * P(B)
+P_A <- 0.4
+P_B <- 0.5
+P_A_and_B <- P_A * P_B
+print(paste("P(A and B) =", P_A_and_B))
+```
+
+### Bayes' Theorem
+```{r}
+# P(A|B) = P(B|A) * P(A) / P(B)
+P_B_given_A <- 0.8
+P_A <- 0.3
+P_B <- 0.5
+P_A_given_B <- (P_B_given_A * P_A) / P_B
+print(paste("P(A|B) =", P_A_given_B))
+```
+
+## Probability Distributions and Discrete Random Variables
+
+### Probability Distributions for Discrete Random Variables
+
+#### Tables
+```{r}
+x <- 0:5
+p <- c(0.1, 0.2, 0.3, 0.2, 0.1, 0.1)
+dist_table <- data.frame(x=x, p=p)
+print(dist_table)
+```
+
+#### Histograms
+```{r}
+barplot(dist_table$p, names.arg=dist_table$x, main="Probability Distribution", xlab="X", ylab="Probability")
+```
+
+### Properties
+
+#### Expected Value
+```{r}
+E_X <- sum(dist_table$x * dist_table$p)
+print(paste("Expected Value:", E_X))
+```
+
+#### Variance
+```{r}
+Var_X <- sum((dist_table$x - E_X)^2 * dist_table$p)
+print(paste("Variance:", Var_X))
+```
+
+### Poisson Distribution
+```{r}
+lambda <- 2
+x <- 0:10
+poisson_dist <- dpois(x, lambda)
+plot(x, poisson_dist, type="h", main="Poisson Distribution", xlab="X", ylab="Probability")
+```
+
+### Jointly Distributed Discrete Random Variables
+```{r}
+# Example joint distribution
+x <- 0:2
+y <- 0:1
+joint_prob <- matrix(c(0.1, 0.2, 0.1, 0.2, 0.3, 0.1), nrow=3, ncol=2)
+rownames(joint_prob) <- x
+colnames(joint_prob) <- y
+print("Joint Distribution:")
+print(joint_prob)
+```
+
+### Conditional Mean and Variance
+```{r}
+# Conditional distribution of X given Y=0
+cond_dist_X_given_Y0 <- joint_prob[, 1] / sum(joint_prob[, 1])
+cond_mean_X_given_Y0 <- sum(x * cond_dist_X_given_Y0)
+print(paste("Conditional Mean of X given Y=0:", cond_mean_X_given_Y0))
+```
+
+### Covariance and Correlation
+```{r}
+# Calculate marginal distributions
+margin_x <- rowSums(joint_prob)
+margin_y <- colSums(joint_prob)
+
+# Calculate means
+mean_x <- sum(x * margin_x)
+mean_y <- sum(y * margin_y)
+
+# Calculate covariance
+cov_xy <- sum(outer(x - mean_x, y - mean_y) * joint_prob)
+print(paste("Covariance:", cov_xy))
+
+# Calculate correlation
+var_x <- sum((x - mean_x)^2 * margin_x)
+var_y <- sum((y - mean_y)^2 * margin_y)
+corr_xy <- cov_xy / sqrt(var_x * var_y)
+print(paste("Correlation:", corr_xy))
+```
+
+## Probability Distributions and Continuous Random Variables
+
+### Uniform Distribution
+```{r}
+a <- 0  # lower bound
+b <- 1  # upper bound
+x <- seq(a - 0.1, b + 0.1, length.out=100)
+y <- dunif(x, min=a, max=b)
+
+plot(x, y, type="l", main="Uniform Distribution", xlab="X", ylab="Density")
+```
+
+### Normal Distribution
+```{r}
+mu <- 0    # mean
+sigma <- 1 # standard deviation
+x <- seq(mu - 3*sigma, mu + 3*sigma, length.out=100)
+y <- dnorm(x, mean=mu, sd=sigma)
+
+plot(x, y, type="l", main="Normal Distribution", xlab="X", ylab="Density")
+```
+
+This concludes our introduction to Econometrics with R. The notebook covers R basics, data visualization, data summaries, probability concepts, and both discrete and continuous probability distributions.

@@ -2,3 +2,8 @@
 /ECON2122A
 /.quarto/
 exams*
+*.aux
+*.fdb_latexmk
+*.log
+*.synctex.gz
+*.fls
